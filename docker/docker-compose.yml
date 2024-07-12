@@ -5,12 +5,14 @@ services:
     container_name: fastapi-mysql
     restart: always
     ports:
-      - "3306:3306"
+      - "3305:3306"
     environment:
-      MYSQL_USER: fastapi
-      MYSQL_PASSWORD: fastapi
+      MYSQL_USER: hdk
+      MYSQL_PASSWORD: hdk
       MYSQL_DATABASE: fastapi
-      MYSQL_ROOT_PASSWORD: fastapi
+      MYSQL_ROOT_PASSWORD: root
+      # MYSQL_ROOT_HOST: "%"
+      # DB_HOST: host.docker.internal
       TZ: "Asia/Seoul"
     volumes:
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql

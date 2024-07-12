@@ -7,7 +7,7 @@ from app.user.adapter.input.api.v1.response import LoginResponse
 from app.user.application.dto import CreateUserResponseDTO, GetUserListResponseDTO
 from app.user.domain.command import CreateUserCommand
 from app.user.domain.usecase.user import UserUseCase
-from core.fastapi.dependencies import IsAdmin, PermissionDependency
+from core.fastapi.dependencies import IsAdmin, PermissionDependency, IsAuthenticated
 
 user_router = APIRouter()
 
@@ -15,7 +15,7 @@ user_router = APIRouter()
 @user_router.get(
     "",
     response_model=list[GetUserListResponseDTO],
-    dependencies=[Depends(PermissionDependency([IsAdmin]))],
+    dependencies=[Depends(PermissionDependency([IsAuthenticated]))],
 )
 @inject
 async def get_user_list(
