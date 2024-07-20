@@ -21,6 +21,7 @@ class ExpiredTokenException(CustomException):
 class TokenHelper:
     @staticmethod
     def encode(payload: dict, expire_period: int = 3600) -> str:
+        # 토큰을 인코딩하는 메서드
         token = jwt.encode(
             payload={
                 **payload,
@@ -33,6 +34,7 @@ class TokenHelper:
 
     @staticmethod
     def decode(token: str) -> dict:
+        # 토큰을 디코딩하는 메서드
         try:
             return jwt.decode(
                 token,
@@ -46,6 +48,7 @@ class TokenHelper:
 
     @staticmethod
     def decode_expired_token(token: str) -> dict:
+        # 만료된 토큰을 디코딩하는 메서드
         try:
             return jwt.decode(
                 token,

@@ -12,6 +12,7 @@ from app.container import Container
 auth_router = APIRouter()
 
 
+# 토큰을 갱신하는 엔드포인트
 @auth_router.post(
     "/refresh",
     response_model=RefreshTokenResponse,
@@ -27,6 +28,7 @@ async def refresh_token(
     return {"token": token.token, "refresh_token": token.refresh_token}
 
 
+# 토큰을 검증하는 엔드포인트
 @auth_router.post("/verify")
 @inject
 async def verify_token(

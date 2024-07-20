@@ -13,6 +13,7 @@ class BaseRepo(Generic[ModelType]):
         self.model = model
 
     async def get_by_id(self, id: int) -> ModelType | None:
+        # 주어진 ID로 모델을 조회하는 메서드
         query = select(self.model).where(self.model.id == id)
         return await session.execute(query).scalars().first()
 
@@ -22,6 +23,7 @@ class BaseRepo(Generic[ModelType]):
         params: dict,
         synchronize_session: SynchronizeSessionEnum = False,
     ) -> None:
+        # 주어진 ID로 모델을 업데이트하는 메서드
         query = (
             update(self.model)
             .where(self.model.id == id)
@@ -31,6 +33,7 @@ class BaseRepo(Generic[ModelType]):
         await session.execute(query)
 
     async def delete(self, model: ModelType) -> None:
+        # 주어진 모델을 삭제하는 메서드
         await session.delete(model)
 
     async def delete_by_id(
@@ -38,6 +41,7 @@ class BaseRepo(Generic[ModelType]):
         id: int,
         synchronize_session: SynchronizeSessionEnum = False,
     ) -> None:
+        # 주어진 ID로 모델을 삭제하는 메서드
         query = (
             delete(self.model)
             .where(self.model.id == id)
@@ -46,5 +50,6 @@ class BaseRepo(Generic[ModelType]):
         await session.execute(query)
 
     async def save(self, model: ModelType) -> ModelType:
+        # 주어진 모델을 저장하는 메서드
         saved = await session.add(model)
         return saved

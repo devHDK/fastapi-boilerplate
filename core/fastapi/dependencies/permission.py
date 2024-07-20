@@ -30,6 +30,7 @@ class IsAuthenticated(BasePermission):
     exception = UnauthorizedException
 
     async def has_permission(self, request: Request) -> bool:
+        # 사용자가 인증되었는지 확인
         return request.user.id is not None
 
 
@@ -42,6 +43,7 @@ class IsAdmin(BasePermission):
         request: Request,
         usecase: UserUseCase = Depends(Provide[Container.user_service]),
     ) -> bool:
+        # 사용자가 관리자 권한을 가지고 있는지 확인
         user_id = request.user.id
         if not user_id:
             return False
@@ -51,6 +53,7 @@ class IsAdmin(BasePermission):
 
 class AllowAll(BasePermission):
     async def has_permission(self, request: Request) -> bool:
+        # 모든 요청을 허용
         return True
 
 
@@ -61,6 +64,7 @@ class PermissionDependency(SecurityBase):
         self.scheme_name = self.__class__.__name__
 
     async def __call__(self, request: Request):
+        # 요청에 대해 모든 권한을 확인
         for permission in self.permissions:
             cls = permission()
             if not await cls.has_permission(request=request):

@@ -10,7 +10,7 @@ class UserRepo(ABC):
         limit: int = 12,
         prev: int | None = None,
     ) -> list[User]:
-        """Get user list"""
+        """사용자 목록 가져오기"""
 
     @abstractmethod
     async def get_user_by_email_or_nickname(
@@ -19,11 +19,11 @@ class UserRepo(ABC):
         email: str,
         nickname: str,
     ) -> User | None:
-        """Get user by email or nickname"""
+        """이메일 또는 닉네임으로 사용자 가져오기"""
 
     @abstractmethod
     async def get_user_by_id(self, *, user_id: int) -> User | None:
-        """Get user by id"""
+        """ID로 사용자 가져오기"""
 
     @abstractmethod
     async def get_user_by_email_and_password(
@@ -32,8 +32,8 @@ class UserRepo(ABC):
         email: str,
         password: str,
     ) -> User | None:
-        """Get user by email and password"""
+        """이메일과 비밀번호로 사용자 가져오기"""
 
     @abstractmethod
     async def save(self, *, user: User) -> None:
-        """Save user"""
+        """사용자 저장"""
